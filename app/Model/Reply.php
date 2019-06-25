@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 class Reply extends Model
 {
+    protected $guarded = [];
+
     public function likes(){
         return $this->hasMany(Like::class);
     }
