@@ -34,4 +34,5 @@ import router from './Router/router';
 
 const app = new Vue({
     el: '#app',
+    router
 });
