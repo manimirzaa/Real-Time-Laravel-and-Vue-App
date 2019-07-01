@@ -3,12 +3,9 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Mask Vision</v-toolbar-title>
     <v-spacer></v-spacer>
-    <div>
-      <v-btn flat>Forum</v-btn>
-      <v-btn flat>Ask Question</v-btn>
-      <v-btn flat>Categories</v-btn>
-      <router-link to="/login">
-        <v-btn flat>Login</v-btn>
+    <div>      
+      <router-link v-for="item in items" :to="item.to" :key="item.title" v-if="item.show" >
+        <v-btn flat>{{ item.title }}</v-btn>
       </router-link>
     </div>
   </v-toolbar>
@@ -16,6 +13,24 @@
 
 <script>
 export default {
+
+    data() {
+        return {
+        items: [
+            {title: 'Forum', to: '/forum', show: 'true' },
+            {title: 'Ask Question', to: '/question', show: User.loggedIn() },
+            {title: 'Categories', to: '/category', show: User.loggedIn() },
+            {title: 'Login', to: '/login', show: !User.loggedIn() },
+            {title: 'Logout', to: '/logout', show: User.loggedIn() }
+        ]
+        }
+    },
+    created(){
+        EventBus.$on('logout', () => {
+            console.log('logout');
+            User.logout()
+        })
+    }
 
 }
 </script>

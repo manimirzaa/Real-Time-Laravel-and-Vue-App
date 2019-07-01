@@ -33,6 +33,7 @@ Vue.component('AppHome', require('./components/AppHome.vue').default);
 import router from './Router/router';
 import User from './Helpers/User';
 window.User = User;
+window.EventBus = new Vue()
 
 const app = new Vue({
     el: '#app',

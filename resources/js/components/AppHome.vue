@@ -10,6 +10,7 @@
 import toolbar from './Toolbar';
 import footercomponent from './FooterComponent';
 import login from './Login/Login';
+import signup from './Login/signup';
 
 export default {
   components:{toolbar, footercomponent, login}

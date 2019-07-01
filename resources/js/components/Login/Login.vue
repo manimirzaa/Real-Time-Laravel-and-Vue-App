@@ -15,6 +15,9 @@
         <v-btn type="submit"
         color="green"
          >submit</v-btn>
+         <router-link to="/signup">
+            <v-btn color="blue">Signup</v-btn>    
+         </router-link>
     </v-container>    
   </v-form>
 </template>
@@ -29,9 +32,15 @@
                 }
             }
         },
+        created(){
+            if(User.loggedIn()){
+                this.$router.push({name: 'forum'})
+            }
+        },
         methods: {
             login(){                
                 User.login(this.form)
+                this.$router.push({name: 'forum'})
             }
         }
     }
