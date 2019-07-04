@@ -4,8 +4,8 @@ namespace App;
 
 use Model\Like;
 use Model\Reply;
+Use App\Model\Question;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-Use Model\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,7 +61,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function questions(){
+    public function question(){
         return $this->hasMany(Question::class);
     }
 

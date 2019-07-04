@@ -40,10 +40,10 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //auth()->user()->create()->question($request->all());
-        Question::create($request->all());
-        return response('Created', Response::HTTP_CREATED);
+    {   
+        $question = auth()->user()->question()->create($request->all());
+       
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**

@@ -13,3 +13,4 @@
 
 Route::view('/', 'Home');
 Route::view('/{any}', 'Home');
+Route::view('/{any}/{any1}', 'Home');

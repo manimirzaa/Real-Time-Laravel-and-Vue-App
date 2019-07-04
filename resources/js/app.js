@@ -11,6 +11,15 @@ window.Vue = require('vue');
 //import vuetify
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
+
+//Import Vue-SimpleMde
+import VueSimplemde from 'vue-simplemde'
+Vue.use(VueSimplemde)
+
+import md from 'marked'
+window.md = md;
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

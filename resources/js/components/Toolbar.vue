@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar dark color="primary">
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Mask Vision</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -18,7 +18,7 @@ export default {
         return {
         items: [
             {title: 'Forum', to: '/forum', show: 'true' },
-            {title: 'Ask Question', to: '/question', show: User.loggedIn() },
+            {title: 'Ask Question', to: '/ask', show: User.loggedIn() },
             {title: 'Categories', to: '/category', show: User.loggedIn() },
             {title: 'Login', to: '/login', show: !User.loggedIn() },
             {title: 'Logout', to: '/logout', show: User.loggedIn() }

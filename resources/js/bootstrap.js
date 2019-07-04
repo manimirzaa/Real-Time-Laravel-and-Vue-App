@@ -37,6 +37,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+
+const JWToken = localStorage.getItem('token'); 
+window.axios.defaults.headers.common['Authorization'] = `Bearer ${JWToken}`;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
