@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <v-container>
+        
         <edit-question v-if="editing"
          :data=question
         >
-
         </edit-question>
         <div v-else>
             <single-question
@@ -11,15 +11,17 @@
             v-if="question"
             ></single-question>
         </div>
-    </div>
+        <new-reply v-if="question" :questionSlug="question.slug"></new-reply>
+    </v-container>
 </template>
 
 <script>
 import singleQuestion from './singleQuestion'
 import editQuestion from './editQuestion'
+import newReply from '../Reply/newReply'
 export default {
     components:{
-        singleQuestion, editQuestion
+        singleQuestion, editQuestion, newReply
     },
     data(){
         return {

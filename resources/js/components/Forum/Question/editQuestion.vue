@@ -1,5 +1,4 @@
 <template>
-    <v-container>
         <v-card>
             <v-card-title>
                 <h1>Edit Question</h1>
@@ -28,7 +27,6 @@
             </v-card-actions>  
             </v-form>
         </v-card>    
-    </v-container>
 </template>
 
 <script>

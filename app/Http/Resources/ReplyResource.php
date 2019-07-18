@@ -16,7 +16,11 @@ class ReplyResource extends JsonResource
     {
         return [
             'reply' => $this->body,
+            'id' => $this->id,
             'user' => $this->user->name,
+            'user_id' => $this->user->id,
+            'likes_count' => $this->likes->count(),
+            'liked' => !! $this->likes->where('user_id', auth()->user()->id)->count(),
             'created_at' => $this->created_at->diffForHumans()
         ];
     }

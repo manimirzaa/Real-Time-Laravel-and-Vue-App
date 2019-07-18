@@ -22,8 +22,10 @@ class Question extends Model
     //protected $guarded = [];
     protected $fillable = ['title', 'slug', 'body', 'user_id', 'category_id'];
 
+    protected $with = ['replies'];
+
     public function replies(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->latest();
     }
 
     public function user(){
