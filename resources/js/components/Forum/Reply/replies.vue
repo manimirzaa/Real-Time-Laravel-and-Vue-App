@@ -1,6 +1,6 @@
 <template>
     <div>
-        <reply v-for="(reply,  index) in replies" 
+        <reply v-for="(reply,  index) in allReplies" 
         :key="reply.id" 
         :index="index" 
         :questionSlug="questionSlug" 
@@ -18,10 +18,23 @@ export default {
     props: ['replies', 'questionSlug'],
     data(){
         return{
-            reply_index: null
+            reply_index: null,
+            allReplies: {}
         }
     },
     created(){
+
+        this.allReplies = this.replies
+
+        Echo.channel('delete-reply-channel')
+        .listen('DeleteReplyEvent', (e) => {
+            for(let index = 0; index < this.allReplies.length; index ++){
+                if(this.allReplies[index].id == e.id){
+                    this.allReplies.splice(index, 1)
+                }
+            }
+        });
+
         EventBus.$on('replyDeleted', (index) => {
             this.replies.splice(index, 1)
         })
@@ -37,6 +50,12 @@ export default {
         EventBus.$on('replyUpdated', (reply) => {
             this.replies.splice(this.reply_index, 1, reply)
         })
+
+        Echo.private('App.User.' + User.id())
+            .notification((notification) => {
+            this.allReplies.unshift(notification.reply)
+        });
+
     }
 }
 </script>

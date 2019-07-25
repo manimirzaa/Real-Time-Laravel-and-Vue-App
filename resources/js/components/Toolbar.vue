@@ -3,6 +3,7 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>Mask Vision</v-toolbar-title>
     <v-spacer></v-spacer>
+    <notifications v-if="loggedIn"></notifications>
     <div>      
       <router-link v-for="item in items" :to="item.to" :key="item.title" v-if="item.show" >
         <v-btn flat>{{ item.title }}</v-btn>
@@ -12,8 +13,9 @@
 </template>
 
 <script>
+import notifications from './AppNotifications'
 export default {
-
+    components: {notifications},
     data() {
         return {
         items: [
@@ -30,8 +32,12 @@ export default {
             console.log('logout');
             User.logout()
         })
+    },
+    computed: {
+      loggedIn(){
+        return User.loggedIn()
+      }  
     }
-
 }
 </script>
 

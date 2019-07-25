@@ -7,7 +7,15 @@
 <script>
 export default {
     created(){ 
+
         this.liked ? this.icon = 'favorite' : 'favorite_border'
+
+        Echo.channel('like-channel')
+        .listen('LikeEvent', (e) => {
+            if(this.content.id == e.id){
+                e.type == 1? this.likes++ : this.likes --
+            }
+        });
      },
     props: ['content'],
     data(){
