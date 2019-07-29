@@ -13,6 +13,7 @@
       </template>
       <v-list>
         <v-list-tile v-for="notification in unread" :key="notification.id">
+          {{ notification.replyBy }} replied on &nbsp;
           <router-link :to="notification.path">  
             <v-list-tile-title @click="readIt(notification)">{{ notification.question }}</v-list-tile-title>
           </router-link>
@@ -48,7 +49,7 @@ export default {
             this.read = res.data.read;
             this.unread = res.data.unread;
             this.unreadCount = res.data.unread.length;
-        })   
+        }).catch(error => Exception.handle(error))   
     },
     methods: {
         readIt(notification){

@@ -1,13 +1,13 @@
 import Token from './Token'
 import AppStorage from './AppStorage'
+import Exception from './Exception'
 
 class User {
     login(data){
        
         axios.post('/api/auth/login', data)
         .then(res => { this.responseAfterLogin(res) })
-        .catch(error => console.log(error.response.data)
-        )
+        .catch(error => {Exception.handle(error.response.data) })
     }
     responseAfterLogin(res){
         const access_token = res.data.access_token;
@@ -22,7 +22,7 @@ class User {
         const storedToken = AppStorage.getToken();
         
         if(storedToken){
-            return Token.isValid(storedToken) ? true :false
+            return Token.isValid(storedToken) ? true : User.logout()
         }
         return false;
     }

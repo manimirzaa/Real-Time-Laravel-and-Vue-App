@@ -41,7 +41,10 @@ Vue.component('AppHome', require('./components/AppHome.vue').default);
 
 import router from './Router/router';
 import User from './Helpers/User';
+import Exception from './Helpers/Exception';
+
 window.User = User;
+window.Exception = Exception;
 window.EventBus = new Vue()
 
 const app = new Vue({

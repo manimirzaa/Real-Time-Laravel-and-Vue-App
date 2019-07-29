@@ -7,7 +7,7 @@
                     <div class="grey--text"> {{ data.user }} said {{ data.created_at }} </div>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn color="grey lighten-2" > {{ data.reply_count }} Replies</v-btn>
+                <v-btn color="grey lighten-2" > {{ replyCount }} Replies</v-btn>
             </v-card-title>
             <v-card-text v-html="body">
             </v-card-text>
@@ -29,12 +29,33 @@
 import replies from '../Reply/replies'
 
 export default {
+    created(){
+        EventBus.$on('replyCreated', () => {
+            this.replyCount ++        
+        })
+
+        EventBus.$on('replyDeleted', (index) => {
+            this.replyCount --
+        })
+
+         Echo.private('App.User.' + User.id())
+             .notification((notification) => {
+             this.replyCount ++
+         })
+
+        Echo.channel('delete-reply-channel')
+        .listen('DeleteReplyEvent', (e) => {
+            this.replyCount --
+        });
+    },
     components: {replies},
     data(){
         return{
-            own: User.own(this.data.user_id)
+            own: User.own(this.data.user_id),
+            replyCount: this.data.reply_count
         }
     },
+    
     props: ['data'],    
     computed: {
         body(){
@@ -43,7 +64,7 @@ export default {
     },
     methods:{
         deleteQuestion(){
-            axios.delete(`/api/question/${this.data.slug}`)
+               axios.delete(`/api/question/${this.data.slug}`)
             .then(res => this.$router.push('/forum'))
             .catch(error => console.log(error.response.data))
         },
